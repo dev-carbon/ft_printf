@@ -11,9 +11,26 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "libft/libft.h"
+#include "libft.h"
 
-static void	get_specifier(t_params *params)
+static void	reinit_params(t_params *params)
+{
+	params->flag[0] = '\0';
+	params->flag[1] = '\0';
+	params->flag[2] = '\0';
+	params->flag[3] = '\0';
+	params->flag[4] = '\0';
+	params->length[0] = '\0';
+	params->length[1] = '\0';
+	params->gap = 0;
+	params->not_blank = 0;
+	params->width = 0;
+	params->precision = -1;
+	params->number = 0;
+	params->unumber = 0;
+}
+
+static void	get_specifiers(t_params *params)
 {
 	params->i++;
 	get_flags(params);
@@ -29,14 +46,14 @@ void		parse(t_params *params)
 	{
 		if (params->f_copy[params->i] == '%')
 		{
-			reinitialize(params);
-			get_specifier(params);
+			reinit_params(params);
+			get_specifiers(params);
 			print(params);
 		}
 		else
 		{
 			ft_putchar(params->f_copy[params->i]);
-			params->pc += 1;
+			params->pc++;
 		}
 		params->i++;
 	}

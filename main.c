@@ -14,18 +14,9 @@
 #include "ft_printf.h"
 #include <wchar.h>
 
-int main(void) {
+int main(void)
+{
+	printf(" -- %d --\n", ft_printf("%-70p%-70p%-70p%-70p%-70p%-70p%-70p%-70p%-70p%-70p%-70p%-70p",&a01,&a02,&a03,&a04,&a05,&a06,&a07,&a08,&a09,&a10));
+	printf(" -- %d --\n", printf("%-70p%-70p%-70p%-70p%-70p%-70p%-70p%-70p%-70p%-70p%-70p%-70p",&a01,&a02,&a03,&a04,&a05,&a06,&a07,&a08,&a09,&a10));
 
-    int	pc_1;
-    int	pc_2;
-    int    c;
-
-    c = 'H';
-    pc_1 = ft_printf("Hello world! %5c\n", c);
-    printf("---------------\n");
-    pc_2 = printf("Hello world! %5c\n", c);
-    printf("---------------\n");
-    printf("ft_printf = %d\tprintf = %d\n", pc_1, pc_2);
-    printf("---------------\n");
-    return 0;
 }

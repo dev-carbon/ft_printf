@@ -6,7 +6,7 @@
 /*   By: humanfou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 16:22:13 by humanfou          #+#    #+#             */
-/*   Updated: 2020/09/23 17:53:57 by humanfou         ###   ########.fr       */
+/*   Updated: 2020/09/27 20:16:06 by humanfou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdint.h>
-
+# include <wchar.h>
 char				*ft_strrev(char *str);
 void				*ft_memset(void *s, int c, size_t n);
 void				ft_bzero(void *s, size_t n);
@@ -47,6 +47,7 @@ char				*ft_strnstr(const char *big, const char *little,
 int					ft_atoi(const char *nptr);
 void				*ft_calloc(size_t nmemb, size_t size);
 char				*ft_strdup(const char *s);
+char                            *ft_strndup(const char *s, size_t n);
 char				*ft_substr(char const *s, unsigned int start, size_t len);
 char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strtrim(char const *s1, char const *set);
@@ -55,7 +56,7 @@ char				*ft_itoa(intmax_t nbr);
 char				*ft_itoa_base(intmax_t value, int base, char case_type);
 char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char                            *ft_strnew(size_t size);
-void				ft_putchar(char c);
+void				ft_putchar(wint_t c);
 void				ft_putchar_fd(char c, int fd);
 void				ft_putstr(char *s);
 void				ft_putstr_fd(char *s, int fd);

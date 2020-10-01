@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "libft/libft.h"
+#include "libft.h"
 
 static uintmax_t	get_number(t_params *params)
 {
@@ -22,27 +22,40 @@ static uintmax_t	get_number(t_params *params)
 	return (number);
 }
 
-static void		set_params(t_params *params)
+static void			set_params(t_params *params)
 {
+	int			num_len;
+
 	params->unumber = get_number(params);
+	params->string = params->unumber == 0 ? ft_strdup("(nil)") :
+		ft_itoa_base(params->unumber, 16, 'x');
+	num_len = params->unumber == 0 ? ft_strlen(params->string) :
+		ft_strlen(params->string) + 2;
+	if (params->width && params->width > num_len)
+		params->gap += params->width - num_len;
+	params->pc += params->gap + num_len;
 }
 
-void			print_p(t_params *params)
+static void			print_str(t_params *params)
+{
+	write(1, "0x", 2);
+	ft_putstr(params->string);
+}
+
+void				print_p(t_params *params)
 {
 	set_params(params);
-	if (params->flag[0] == '-')
+	if (params->unumber == 0)
+		ft_putstr(params->string);
+	else if (params->flag[0] == '-')
 	{
-		ft_putnbr(params->unumber);
+		print_str(params);
 		print_padding(' ', params->gap);
-	}
-	else if (params->flag[1] == '0')
-	{
-		print_padding('0', params->gap);
-		ft_putnbr(params->unumber);
 	}
 	else
 	{
 		print_padding(' ', params->gap);
-		ft_putnbr(params->unumber);
+		print_str(params);
 	}
+	free(params->string);
 }

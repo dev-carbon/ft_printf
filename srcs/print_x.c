@@ -38,14 +38,15 @@ static uintmax_t	get_number(t_params *params)
 
 static void			set_params(t_params *params)
 {
-	int		number_length;
+	int			num_len;
 
 	params->unumber = get_number(params);
-	number_length = ft_strlen(ft_itoa_base(params->unumber, 16, params->type));
-	if (params->width && params->width > number_length)
-		params->gap += params->width - number_length;
-	if (params->precision && params->precision > number_length)
-		params->not_blank += params->precision - number_length;
+	params->string = ft_itoa_base(params->unumber, 16, params->type);
+	num_len = ft_strlen(params->string);
+	if (params->width && params->width > num_len)
+		params->gap += params->width - num_len;
+	if (params->precision && params->precision > num_len)
+		params->not_blank += params->precision - num_len;
 	if (params->width > params->precision)
 		params->gap -= params->not_blank;
 	else
@@ -55,7 +56,7 @@ static void			set_params(t_params *params)
 		params->gap -= 2;
 		params->pc += 2;
 	}
-	params->pc += params->gap + number_length + params->not_blank;
+	params->pc += params->gap + num_len + params->not_blank;
 }
 
 static void			print_preffix(t_params *params)
@@ -77,21 +78,22 @@ void				print_x(t_params *params)
 	else if (params->flag[0] == '-')
 	{
 		print_preffix(params);
-		print_precision(params);
-		ft_putstr(ft_itoa_base(params->unumber, 16, params->type));
+		print_not_blank(params);
+		ft_putstr(params->string);
 		print_padding(' ', params->gap);
 	}
 	else if (params->flag[1] == '0')
 	{
 		print_preffix(params);
 		print_padding('0', params->gap);
-		ft_putstr(ft_itoa_base(params->unumber, 16, params->type));
+		ft_putstr(params->string);
 	}
 	else
 	{
 		print_padding(' ', params->gap);
 		print_preffix(params);
-		print_precision(params);
-		ft_putstr(ft_itoa_base(params->unumber, 16, params->type));
+		print_not_blank(params);
+		ft_putstr(params->string);
 	}
+	free(params->string);
 }

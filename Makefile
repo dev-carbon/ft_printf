@@ -6,7 +6,7 @@
 #    By: humanfou <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/25 15:35:56 by humanfou          #+#    #+#              #
-#    Updated: 2020/09/25 15:57:59 by humanfou         ###   ########.fr        #
+#    Updated: 2020/10/01 19:02:58 by humanfou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,19 +29,19 @@ CFILE =		ft_printf.c \
                 get_precision.c \
                 get_type.c \
                 get_width.c \
-                initialize.c \
-                reinitialize.c \
                 parse.c \
                 print.c \
                 print_c.c \
                 print_s.c \
-                print_d.c \
                 print_p.c \
+                print_d.c \
                 print_u.c \
                 print_x.c \
+                print_other.c \
                 print_wchar.c \
+                print_sign.c \
                 print_padding.c \
-                print_precision.c
+                print_not_blank.c
 
 CFIND =		$(CFILE:%=$(SRC_DIR)%)
 
@@ -75,7 +75,7 @@ $(OFILE):
 clean:
 		@/bin/rm -rf $(OBJ_DIR)
 		@make -C $(LIB_DIR) clean
-		@echo Cleaned ft_printf object files
+		@echo Cleaned ft_printf object files.
 
 fclean: clean
 		@/bin/rm -f $(NAME)

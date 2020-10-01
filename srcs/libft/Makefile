@@ -6,7 +6,7 @@
 #    By: humanfou <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/23 17:49:24 by humanfou          #+#    #+#              #
-#    Updated: 2020/09/23 19:54:52 by humanfou         ###   ########.fr        #
+#    Updated: 2020/10/01 21:04:47 by humanfou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,8 @@ SRCS = ft_memset.c \
 	ft_atoi.c \
 	ft_calloc.c \
 	ft_strdup.c \
-	ft_substr.c \
+	ft_strndup.c \
+        ft_substr.c \
 	ft_strjoin.c \
 	ft_strtrim.c \
 	ft_split.c \
@@ -84,16 +85,16 @@ bonus: $(OBJ) $(OBJ_BONUS)
 $(NAME):
 	@gcc $(CFLAGS) -c $(SRCS)
 	@ar rc $(NAME) $(OBJ)
-	@ranlib $(NAME)
 	@echo $(NAME) CREATED.
 
 clean:
-	@echo CLEANING OBJECT FILES.
-	@rm -fv $(OBJ) $(OBJ_BONUS)
+	@/bin/rm -rf $(OBJ) $(OBJ_BONUS)
+	@echo Cleaned libft object files.
 
 fclean: clean
-	@echo REMOVING $(NAME).
-	@rm -fv $(NAME)
+	@/bin/rm -f $(NAME)
+	@echo $(NAME) Removed.
+
 
 re: fclean all
 

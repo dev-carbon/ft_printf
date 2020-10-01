@@ -16,11 +16,16 @@ void	get_precision(t_params *params)
 {
 	while (params->f_treat[params->i] == '.' && params->i++)
 		params->precision = 0;
-	while (params->f_treat[params->i] >= '0' &&
-		params->f_treat[params->i] <= '9')
+	if (params->f_treat[params->i] == '*' && params->i++)
+		params->precision = va_arg(params->args, int);
+	else
 	{
-		params->precision *= 10;
-		params->precision += (params->f_treat[params->i] - '0');
-		params->i++;
+		while (params->f_treat[params->i] >= '0' &&
+			params->f_treat[params->i] <= '9')
+		{
+			params->precision *= 10;
+			params->precision += (params->f_treat[params->i] - '0');
+			params->i++;
+		}
 	}
 }

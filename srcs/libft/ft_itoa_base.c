@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
 char	*generate_string(char *str, char *mask, intmax_t value, int base)
 {
@@ -45,7 +44,7 @@ char	*ft_itoa_base(intmax_t value, int base, char case_type)
 	int			number_length;
 
 	number_length = (value < 0) ? ft_nbrlen(value) + 1 : ft_nbrlen(value);
-	if (!(res = (char *)malloc(sizeof(char)) + number_length + 1))
+	if (!(res = (char *)malloc(sizeof(char) * (number_length + 1))))
 		return (NULL);
 	if (case_type == 'x')
 		generate_string(res, "0123456789abcdef", value, base);

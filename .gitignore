@@ -1,0 +1,6 @@
+pft_2019/
+pft/
+obj/
+a.out
+main.c
+print_params.c

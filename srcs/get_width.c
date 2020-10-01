@@ -14,6 +14,8 @@
 
 void	get_width(t_params *params)
 {
+	while (params->f_treat[params->i] == '*' && params->i++)
+		params->width = va_arg(params->args, int);
 	while (params->f_treat[params->i] >= '0' &&
 		params->f_treat[params->i] <= '9')
 	{

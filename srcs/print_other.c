@@ -1,19 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_precision.c                                  :+:      :+:    :+:   */
+/*   print_other.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: humanfou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/24 16:25:51 by humanfou          #+#    #+#             */
-/*   Updated: 2020/09/24 16:26:59 by humanfou         ###   ########.fr       */
+/*   Created: 2020/09/27 16:00:23 by humanfou          #+#    #+#             */
+/*   Updated: 2020/09/27 16:00:27 by humanfou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include "libft.h"
 
-void    print_precision(t_params *params)
+static void	set_params(t_params *params)
 {
-    if (params->precision)
-        print_padding('0', params->not_blank);
+	if (params->type == '%')
+		params->pc++;
+}
+
+void		print_other(t_params *params)
+{
+	set_params(params);
+	if (params->type == '%')
+		ft_putchar(params->type);
 }

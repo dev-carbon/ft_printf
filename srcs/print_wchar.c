@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <unistd.h>
 
 static void		oct_4(wint_t c)
 {
@@ -48,26 +47,17 @@ static void		oct_1(wint_t c)
 	write(1, &c, 1);
 }
 
-void			display_wchar(wint_t c, t_params *params)
+void			print_wchar(t_params *params)
 {
+	wint_t	c;
+
+	c = params->character;
 	if (c <= 127)
-	{
-		params->pc += 1;
 		oct_1(c);
-	}
 	if (c >= 127 && c <= 2047)
-	{
-		params->pc += 2;
 		oct_2(c);
-	}
 	if (c >= 2048 && c <= 65535)
-	{
-		params->pc += 3;
 		oct_3(c);
-	}
 	if (c >= 65536 && c <= 2097151)
-	{
-		params->pc += 4;
 		oct_4(c);
-	}
 }

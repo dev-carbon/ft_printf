@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: humanfou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/26 15:39:11 by humanfou          #+#    #+#             */
-/*   Updated: 2019/11/26 15:39:13 by humanfou         ###   ########.fr       */
+/*   Created: 2020/09/27 20:12:39 by humanfou          #+#    #+#             */
+/*   Updated: 2020/09/27 20:17:20 by humanfou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlen(const char *s)
+char	*ft_strndup(const char *s1, size_t n)
 {
-	size_t	len;
+	char	*str;
+	size_t	i;
 
-	len = 0;
-	if (s)
-		while (*s++)
-			len++;
-	return (len);
+	i = -1;
+	if (!(str = ft_strnew(n)))
+		return (NULL);
+	while (++i < n && s1[i] != '\0')
+		str[i] = s1[i];
+	return (str);
 }

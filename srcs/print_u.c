@@ -14,62 +14,70 @@
 #include "libft/libft.h"
 #include <limits.h>
 
-static uintmax_t	get_number(t_params *params)
+static uintmax_t	get_number(t_params *p)
 {
 	uintmax_t	num;
 
-	if (params->type == 'U' || ft_strcmp(params->length, "l") == 0)
-		num = (unsigned long)(va_arg(params->args, unsigned long int));
-	else if (ft_strcmp(params->length, "hh") == 0)
-		num = (unsigned char)(va_arg(params->args, unsigned int));
-	else if (ft_strcmp(params->length, "h") == 0)
-		num = (unsigned short)(va_arg(params->args, unsigned int));
-	else if (ft_strcmp(params->length, "ll") == 0)
-		num = (unsigned long long)(va_arg(params->args, unsigned long long int));
-	else if (ft_strcmp(params->length, "j") == 0)
-		num = (uintmax_t)(va_arg(params->args, uintmax_t));
-	else if (ft_strcmp(params->length, "z") == 0)
-		num = (size_t)(va_arg(params->args, size_t));
+	if (p->type == 'U' || ft_strcmp(p->length, "l") == 0)
+		num = (unsigned long)(va_arg(p->args, unsigned long int));
+	else if (ft_strcmp(p->length, "hh") == 0)
+		num = (unsigned char)(va_arg(p->args, unsigned int));
+	else if (ft_strcmp(p->length, "h") == 0)
+		num = (unsigned short)(va_arg(p->args, unsigned int));
+	else if (ft_strcmp(p->length, "ll") == 0)
+		num = (unsigned long long)(va_arg(p->args, unsigned long long int));
+	else if (ft_strcmp(p->length, "j") == 0)
+		num = (uintmax_t)(va_arg(p->args, uintmax_t));
+	else if (ft_strcmp(p->length, "z") == 0)
+		num = (size_t)(va_arg(p->args, size_t));
 	else
-		num = (unsigned int)(va_arg(params->args, unsigned int));
+		num = (unsigned int)(va_arg(p->args, unsigned int));
 	num = (uintmax_t)num;
 	return (num);
 }
 
-static void		set_params(t_params *params)
+static void			set_params(t_params *p)
 {
-	int		number_length;
+	int			num_len;
 
-	params->unumber = get_number(params);
-	number_length = ft_nbrlen(params->unumber);
-	params->gap += params->width - number_length;
-	if (params->precision && params->precision > number_length)
-		params->not_blank += params->precision - number_length;
-	if (params->width > params->precision)
-		params->gap -= params->not_blank;
-	else
-		params->gap = 0;
-	params->pc += params->gap + number_length + params->not_blank;
+	p->unumber = get_number(p);
+	num_len = ft_nbrlen(p->unumber);
+	p->gap += (p->width && p->width > num_len) ? p->width - num_len : 0;
+	p->not_blank += (p->precision && p->precision > num_len) ?
+		p->precision - num_len : 0;
+	p->gap -= (p->width > p->precision) ? p->not_blank : p->gap;
+	p->gap += (p->unumber == 0 && p->precision == 0) ? 1 : 0;
+	p->pc += p->gap + num_len + p->not_blank;
 }
 
-void			print_u(t_params *params)
+static void			print_number(t_params *p)
 {
-	set_params(params);
-	if (params->flag[0] == '-')
+	if (p->unumber != 0 || p->precision != 0)
+		ft_putnbrumax_fd(p->unumber, 1);
+}
+
+void				print_u(t_params *p)
+{
+	set_params(p);
+	if (p->width == 0 && p->precision == 0 && p->number == 0)
+		return ;
+	if (p->flag[0] == '-')
 	{
-		print_precision(params);
-		ft_putnbrumax_fd(params->unumber, 1);
-		print_padding(' ', params->gap);
+		print_not_blank(p);
+		print_number(p);
+		print_padding(' ', p->gap);
 	}
-	else if(params->flag[1] == '0')
+	else if (p->flag[1] == '0')
 	{
-		print_padding('0', params->gap);
-		ft_putnbrumax_fd(params->unumber, 1);
+		(p->precision > 0) ? print_padding(' ', p->gap) :
+			print_padding('0', p->gap);
+		print_padding('0', p->not_blank);
+		print_number(p);
 	}
 	else
 	{
-		print_padding(' ', params->gap);
-		print_precision(params);
-		ft_putnbrumax_fd(params->unumber, 1);
+		print_padding(' ', p->gap);
+		print_not_blank(p);
+		print_number(p);
 	}
 }

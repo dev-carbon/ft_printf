@@ -16,23 +16,23 @@ void	print_params(t_params *params)
 {
 	int	i;
 
-	printf("format = %s", params->format);
+	printf("format = %s\n", params->format);
 	printf("---------------------------------------\n");
 	i = -1;
 	while (++i < 5)
 		printf("flag[%d] = %c\n", i, params->flag[i]);
 	printf("---------------------------------------\n");
-	printf("width = %ld\n", params->width);
+	printf("width = %d\n", params->width);
 	printf("---------------------------------------\n");
 	printf("length = %s\n", params->length);
 	printf("---------------------------------------\n");
-	printf("precision = %ld\n", params->precision);
+	printf("precision = %d\n", params->precision);
 	printf("---------------------------------------\n");
 	printf("type = %c\n", params->type);
 	printf("---------------------------------------\n");
-	printf("printed characters = %d\n", params->pc);
-	printf("---------------------------------------\n");
 	printf("gap = %d\n", params->gap);
+	printf("---------------------------------------\n");
+	printf("printed characters = %d\n", params->pc);
 	printf("---------------------------------------\n");
 	printf("not blank = %d\n", params->not_blank);
 	printf("---------------------------------------\n");

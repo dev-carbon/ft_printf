@@ -1,24 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   print_precision.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: humanfou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/26 15:39:11 by humanfou          #+#    #+#             */
-/*   Updated: 2019/11/26 15:39:13 by humanfou         ###   ########.fr       */
+/*   Created: 2020/09/24 16:25:51 by humanfou          #+#    #+#             */
+/*   Updated: 2020/09/24 16:26:59 by humanfou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-size_t	ft_strlen(const char *s)
+void	print_not_blank(t_params *params)
 {
-	size_t	len;
-
-	len = 0;
-	if (s)
-		while (*s++)
-			len++;
-	return (len);
+	print_padding('0', params->not_blank);
 }
