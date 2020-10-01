@@ -20,9 +20,7 @@ char	*generate_string(char *str, char *mask, intmax_t value, int base)
 	unbr = (value < 0) ? -value : value;
 	i = -1;
 	if (unbr == 0)
-	{
 		str[++i] = mask[0];
-	}
 	else
 	{
 		while (unbr > 0)
@@ -32,8 +30,8 @@ char	*generate_string(char *str, char *mask, intmax_t value, int base)
 		}
 		if (value < 0 && base == 10)
 			str[++i] = '-';
-		str[++i] = '\0';
 	}
+	str[++i] = '\0';
 	ft_strrev(str);
 	return (str);
 }

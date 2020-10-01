@@ -38,5 +38,7 @@ void	print_params(t_params *params)
 	printf("---------------------------------------\n");
 	printf("number = %lu\n", params->number);
 	printf("---------------------------------------\n");
+	printf("string = %s\n", params->string);
+	printf("---------------------------------------\n");
 	printf("unumber = %lu\n", params->unumber);
 }

@@ -52,12 +52,12 @@ void			print_wchar(t_params *params)
 	wint_t	c;
 
 	c = params->character;
-	if (c <= 127)
+	if (c < 128)
 		oct_1(c);
-	if (c >= 127 && c <= 2047)
+	else if (c < 2048)
 		oct_2(c);
-	if (c >= 2048 && c <= 65535)
+	else if (c < 65536)
 		oct_3(c);
-	if (c >= 65536 && c <= 2097151)
+	else if (c <= 2097151)
 		oct_4(c);
 }

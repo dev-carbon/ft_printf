@@ -55,15 +55,17 @@ void		get_length(t_params *params);
 void		get_type(t_params *params);
 void		print_c(t_params *params);
 void		print_s(t_params *params);
+void		print_o(t_params *params);
 void		print_p(t_params *params);
 void		print_d(t_params *params);
 void		print_u(t_params *params);
 void		print_wchar(t_params *params);
+void		print_ws(t_params *params);
 void		print_x(t_params *params);
 void		print_other(t_params *params);
-void            print_sign(t_params *p);
-void 		print_padding(char padding, int gap);
-void 		print_not_blank(t_params *params);
+void		print_sign(t_params *p);
+void		print_padding(char padding, int gap);
+void		print_not_blank(t_params *params);
 void		print_params(t_params *params);
 
 #endif

@@ -17,7 +17,7 @@ static void	init_params(t_params *params)
 	params->f_copy = (char *)params->format;
 	params->f_treat = (char *)params->format;
 	params->flag_mask = "-+ 0#";
-	params->type_mask = "cCsSpdDiuxX%";
+	params->type_mask = "cCsSpdDiuoxX%";
 	params->length_mask = "lhjz";
 	params->width = 0;
 	params->precision = -1;

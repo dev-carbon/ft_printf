@@ -14,13 +14,23 @@
 
 void	get_width(t_params *params)
 {
-	while (params->f_treat[params->i] == '*' && params->i++)
-		params->width = va_arg(params->args, int);
-	while (params->f_treat[params->i] >= '0' &&
-		params->f_treat[params->i] <= '9')
+	if (params->f_treat[params->i] == '*' && params->i++)
 	{
-		params->width *= 10;
-		params->width += (params->f_treat[params->i] - '0');
-		params->i++;
+		params->width = va_arg(params->args, int);
+		if (params->width < 0)
+		{
+			params->width *= -1;
+			params->flag[0] = '-';
+		}
+	}
+	else
+	{
+		while (params->f_treat[params->i] >= '0' &&
+			params->f_treat[params->i] <= '9')
+		{
+			params->width *= 10;
+			params->width += (params->f_treat[params->i] - '0');
+			params->i++;
+		}	
 	}
 }

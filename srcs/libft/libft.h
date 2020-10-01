@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <stdint.h>
 # include <wchar.h>
+
 char				*ft_strrev(char *str);
 void				*ft_memset(void *s, int c, size_t n);
 void				ft_bzero(void *s, size_t n);
@@ -26,6 +27,7 @@ void				*ft_memmove(void *dest, const void *src, size_t n);
 void				*ft_memchr(const void *s, int c, size_t n);
 int					ft_memcmp(const void *s1, const void *s2, size_t n);
 size_t				ft_strlen(const char *s);
+size_t				ft_charlen(const wchar_t c);
 size_t                          ft_nbrlen(intmax_t nbr);
 int					ft_isalpha(int c);
 int					ft_isdigit(int c);

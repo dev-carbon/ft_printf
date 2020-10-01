@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_charlen.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: humanfou <humanfou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: humanfou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/06 08:52:53 by humanfou          #+#    #+#             */
-/*   Updated: 2020/08/06 08:53:00 by humanfou         ###   ########.fr       */
+/*   Created: 2020/10/01 21:46:15 by humanfou          #+#    #+#             */
+/*   Updated: 2020/10/01 21:46:22 by humanfou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include "ft_printf.h"
-#include <wchar.h>
+#include "libft.h"
 
-int main(void)
+size_t	ft_charlen(wchar_t c)
 {
-	ft_printf("%-4d\n", 94827);
-	printf("-----------------------\n");
-	printf("%-4d\n",94827);
-	return(0);
+	int len;
+
+	if (c < 128)
+		len = 1;
+	else if (c < 2048)
+		len = 2;
+	else if (c < 65536)
+		len = 3;
+	else
+		len = 4;
+	return (len);
 }

@@ -1,17 +1,6 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   print_x.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: humanfou <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/23 16:03:21 by humanfou          #+#    #+#             */
-/*   Updated: 2020/09/23 16:03:27 by humanfou         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "libft/libft.h"
+#include "libft.h"
 
 static uintmax_t	get_number(t_params *params)
 {
@@ -41,7 +30,7 @@ static void			set_params(t_params *params)
 	int			num_len;
 
 	params->unumber = get_number(params);
-	params->string = ft_itoa_base(params->unumber, 16, params->type);
+	params->string = ft_itoa_base(params->unumber, 8, 'x');
 	num_len = ft_strlen(params->string);
 	if (params->precision && params->precision > num_len)
 		params->not_blank += params->precision - num_len;
@@ -55,8 +44,8 @@ static void			set_params(t_params *params)
 		params->gap = 0;
 	if (params->flag[4] == '#' && params->unumber != 0)
 	{
-		params->gap -= 2;
-		params->pc += 2;
+		params->gap -= 1;
+		params->pc += 1;
 	}
 	params->pc += params->gap + num_len + params->not_blank;
 }
@@ -64,12 +53,7 @@ static void			set_params(t_params *params)
 static void			print_preffix(t_params *params)
 {
 	if (params->flag[4] == '#' && params->unumber != 0)
-	{
-		if (params->type == 'x')
-			write(1, "0x", 2);
-		if (params->type == 'X')
-			write(1, "0X", 2);
-	}
+		write(1, "0", 1);
 }
 
 static void		handle_flag_zero_precison(t_params *p)
@@ -86,7 +70,7 @@ static void		handle_flag_zero_precison(t_params *p)
 	}
 }
 
-void				print_x(t_params *params)
+void				print_o(t_params *params)
 {
 	set_params(params);
 	if (params->unumber == 0 && params->precision == 0)

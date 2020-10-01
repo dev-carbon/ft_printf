@@ -24,6 +24,8 @@ void	print(t_params *params)
 		print_d(params);
 	else if (type == 's' && ft_strcmp(params->length, "l") == 0)
 		print_ws(params);
+	else if (type == 'o')
+		print_o(params);
 	else if (type == 's')
 		print_s(params);
 	else if (type == 'p')

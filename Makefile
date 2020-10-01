@@ -33,12 +33,14 @@ CFILE =		ft_printf.c \
                 print.c \
                 print_c.c \
                 print_s.c \
+                print_o.c \
                 print_p.c \
                 print_d.c \
                 print_u.c \
                 print_x.c \
                 print_other.c \
                 print_wchar.c \
+                print_ws.c \
                 print_sign.c \
                 print_padding.c \
                 print_not_blank.c
