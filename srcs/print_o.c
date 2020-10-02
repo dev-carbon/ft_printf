@@ -1,6 +1,6 @@
 
 #include "ft_printf.h"
-#include "libft.h"
+#include "libft/libft.h"
 
 static uintmax_t	get_number(t_params *params)
 {

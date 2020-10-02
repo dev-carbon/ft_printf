@@ -42,21 +42,21 @@ static void		set_params(t_params *p)
 	int			num_len;
 
 	p->number = get_number(p);
-	p->unumber = (p->number < 0) ? -p->number : p->number;
+	p->unumber = p->number < 0 ? -p->number : p->number;
 	num_len = ft_nbrlen(p->unumber);
-	if (p->precision > -1 && p->precision > num_len)
-		p->not_blank += p->precision - num_len;
-	p->gap += (p->width && p->width > num_len) ? (p->width - num_len) : 0;
-	p->gap -= (p->width > p->precision) ? p->not_blank : p->gap;
-	if (p->flag[2] == '+' || p->flag[3] == ' ')
-	{
-		p->gap--;
-		p->pc++;
-	}
-	p->gap += (p->unumber == 0 && p->precision == 0) ? 1 : 0;
-	p->gap -= p->number < 0 ? 1 : 0;
-	p->pc += (p->number < 0) ? 1 : 0;
-	p->pc += p->gap + p->not_blank + num_len;
+
+	p->not_blank += p->precision > num_len ? p->precision - num_len : 0;
+
+	p->gap += p->precision == 0 && p->unumber == 0 ? 1 : 0;
+
+	p->gap += p->number < 0 ? p->width - p->not_blank - num_len - 1 :
+		p->width - p->not_blank - num_len;
+
+	p->gap = p->gap < 0 ? 0 : p->gap;
+
+	p->pc += num_len + p->gap + p->not_blank;
+	p->pc += p->number < 0 ? 1 : 0;
+	p->pc -= p->precision == 0 && p->unumber == 0 ? 1 : 0;
 }
 
 static void		handle_flag_zero_precison(t_params *p)
@@ -82,6 +82,7 @@ static void		print_number(t_params *p)
 void			print_d(t_params *p)
 {
 	set_params(p);
+	// print_params(p);
 	if (p->width == 0 && p->precision == 0 && p->number == 0)
 		return ;
 	else if (p->flag[0] == '-')

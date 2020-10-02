@@ -16,8 +16,6 @@ void	print_params(t_params *params)
 {
 	int	i;
 
-	printf("format = %s\n", params->format);
-	printf("---------------------------------------\n");
 	i = -1;
 	while (++i < 5)
 		printf("flag[%d] = %c\n", i, params->flag[i]);
@@ -36,9 +34,9 @@ void	print_params(t_params *params)
 	printf("---------------------------------------\n");
 	printf("not blank = %d\n", params->not_blank);
 	printf("---------------------------------------\n");
-	printf("number = %lu\n", params->number);
+	printf("number = %ld\n", params->number);
+	printf("---------------------------------------\n");
+	printf("unumber = %ld\n", params->unumber);
 	printf("---------------------------------------\n");
 	printf("string = %s\n", params->string);
-	printf("---------------------------------------\n");
-	printf("unumber = %lu\n", params->unumber);
 }
