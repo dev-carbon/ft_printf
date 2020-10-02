@@ -43,22 +43,34 @@ static void			set_params(t_params *params)
 	params->unumber = get_number(params);
 	params->string = ft_itoa_base(params->unumber, 16, params->type);
 	num_len = ft_strlen(params->string);
-	if (params->precision && params->precision > num_len)
-		params->not_blank += params->precision - num_len;
-	if (params->unumber == 0 && params->precision == 0)
-		params->gap++;
-	if (params->width && params->width > num_len)
-		params->gap += params->width - num_len;
-	if (params->width > params->precision)
-		params->gap -= params->not_blank;
-	else
-		params->gap = 0;
-	if (params->flag[4] == '#' && params->unumber != 0)
-	{
-		params->gap -= 2;
-		params->pc += 2;
-	}
-	params->pc += params->gap + num_len + params->not_blank;
+	params->not_blank += params->precision > num_len ? params->precision - num_len : 0;
+	params->gap += params->precision == 0 && params->unumber == 0 ? 1 : 0;
+	params->gap += params->number < 0 ? params->width - params->not_blank - num_len - 1 :
+		params->width - params->not_blank - num_len;
+	params->gap = params->gap < 0 ? 0 : params->gap;
+	params->pc += num_len + params->gap + params->not_blank;
+	params->pc += params->number < 0 ? 1 : 0;
+	params->pc -= params->precision == 0 && params->unumber == 0 ? 1 : 0;
+	// params->unumber = get_number(params);
+	// params->string = ft_itoa_base(params->unumber, 16, params->type);
+	// num_len = ft_strlen(params->string);
+	// if (params->precision && params->precision > num_len)
+	// 	params->not_blank += params->precision - num_len;
+	// if (params->unumber == 0 && params->precision == 0)
+	// 	params->gap++;
+	// if (params->width && params->width > num_len)
+	// 	params->gap += params->width - num_len;
+	// if (params->width > params->precision)
+	// 	params->gap -= params->not_blank;
+	// else
+	// 	params->gap = 0;
+	// if (params->flag[4] == '#' && params->unumber != 0)
+	// {
+	// 	params->gap -= 2;
+	// 	params->pc += 2;
+	// }
+	// params->pc += params->gap + num_len + params->not_blank;
+	// params->pc -= params->precision == 0 && params->unumber == 0 ? 1 : 0;
 }
 
 static void			print_preffix(t_params *params)
@@ -72,17 +84,17 @@ static void			print_preffix(t_params *params)
 	}
 }
 
-static void		handle_flag_zero_precison(t_params *p)
+static void		handle_flag_zero_precison(t_params *params)
 {
-	if (p->precision > -1)
+	if (params->precision > -1)
 	{
-		print_padding(' ', p->gap);
-		print_preffix(p);
+		print_padding(' ', params->gap);
+		print_preffix(params);
 	}
 	else
 	{
-		print_preffix(p);
-		print_padding('0', p->gap);
+		print_preffix(params);
+		print_padding('0', params->gap);
 	}
 }
 

@@ -39,15 +39,17 @@ static uintmax_t	get_number(t_params *p)
 static void			set_params(t_params *p)
 {
 	int			num_len;
-
+	
 	p->unumber = get_number(p);
 	num_len = ft_nbrlen(p->unumber);
-	p->gap += (p->width && p->width > num_len) ? p->width - num_len : 0;
-	p->not_blank += (p->precision && p->precision > num_len) ?
-		p->precision - num_len : 0;
-	p->gap -= (p->width > p->precision) ? p->not_blank : p->gap;
-	p->gap += (p->unumber == 0 && p->precision == 0) ? 1 : 0;
-	p->pc += p->gap + num_len + p->not_blank;
+	p->not_blank += p->precision > num_len ? p->precision - num_len : 0;
+	p->gap += p->precision == 0 && p->unumber == 0 ? 1 : 0;
+	p->gap += p->number < 0 ? p->width - p->not_blank - num_len - 1 :
+		p->width - p->not_blank - num_len;
+	p->gap = p->gap < 0 ? 0 : p->gap;
+	p->pc += num_len + p->gap + p->not_blank;
+	p->pc += p->number < 0 ? 1 : 0;
+	p->pc -= p->precision == 0 && p->unumber == 0 ? 1 : 0;
 }
 
 static void			print_number(t_params *p)

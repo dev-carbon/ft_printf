@@ -17,13 +17,7 @@ void	get_precision(t_params *params)
 	while (params->f_treat[params->i] == '.' && params->i++)
 		params->precision = 0;
 	if (params->f_treat[params->i] == '*' && params->i++)
-	{
 		params->precision = va_arg(params->args, int);
-		if (params->precision < 0)
-			params->precision = -2;
-		if (params->precision == 0)
-			params->precision = -3;
-	}
 	else
 	{
 		while (params->f_treat[params->i] >= '0' &&
