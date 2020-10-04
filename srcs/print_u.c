@@ -54,14 +54,19 @@ static void			set_params(t_params *p)
 
 static void			print_number(t_params *p)
 {
-	if (p->unumber != 0 || p->precision != 0)
+	if (p->precision == 0)
+	{
+		if (p->unumber != 0)
+			ft_putnbrumax_fd(p->unumber, 1);
+	}
+	else
 		ft_putnbrumax_fd(p->unumber, 1);
 }
 
 void				print_u(t_params *p)
 {
 	set_params(p);
-	if (p->width == 0 && p->precision == 0 && p->number == 0)
+	if (p->width == 0 && p->precision == 0 && p->unumber == 0)
 		return ;
 	if (p->flag[0] == '-')
 	{
@@ -71,7 +76,7 @@ void				print_u(t_params *p)
 	}
 	else if (p->flag[1] == '0')
 	{
-		(p->precision > 0) ? print_padding(' ', p->gap) :
+		(p->precision > -1) ? print_padding(' ', p->gap) :
 			print_padding('0', p->gap);
 		print_padding('0', p->not_blank);
 		print_number(p);

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
 static void		oct_4(wint_t c)
 {
@@ -36,7 +37,6 @@ static void		oct_3(wint_t c)
 static void		oct_2(wint_t c)
 {
 	unsigned char put[2];
-
 	put[0] = 192 | (c >> 6);
 	put[1] = 128 | ((c & 63));
 	write(1, put, 2);
