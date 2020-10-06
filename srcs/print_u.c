@@ -39,7 +39,7 @@ static uintmax_t	get_number(t_params *p)
 static void			set_params(t_params *p)
 {
 	int			num_len;
-	
+
 	p->unumber = get_number(p);
 	num_len = ft_nbrlen(p->unumber);
 	p->not_blank += p->precision > num_len ? p->precision - num_len : 0;

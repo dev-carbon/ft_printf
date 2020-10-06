@@ -39,8 +39,6 @@ CFILE =		ft_printf.c \
                 print_u.c \
                 print_x.c \
                 print_other.c \
-                print_wchar.c \
-                print_ws.c \
                 print_sign.c \
                 print_padding.c \
                 print_not_blank.c

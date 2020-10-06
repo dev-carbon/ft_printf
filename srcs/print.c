@@ -23,7 +23,7 @@ void	print(t_params *params)
 	else if (type == 'd' || type == 'i' || type == 'D')
 		print_d(params);
 	else if (type == 's' && ft_strcmp(params->length, "l") == 0)
-		print_ws(params);
+		print_s(params);
 	else if (type == 'o')
 		print_o(params);
 	else if (type == 's')

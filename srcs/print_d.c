@@ -48,9 +48,18 @@ static void		set_params(t_params *p)
 	p->gap += p->precision == 0 && p->unumber == 0 ? 1 : 0;
 	p->gap += p->number < 0 ? p->width - p->not_blank - num_len - 1 :
 		p->width - p->not_blank - num_len;
+	if (p->flag[2] == '+' || p->flag[3] == ' ')
+	{
+		if (p->number < 0)
+		{
+			p->gap -= 1;
+			p->pc += 1;
+		}
+	}
+	else if (p->number < 0)
+		p->pc += 1;
 	p->gap = p->gap < 0 ? 0 : p->gap;
 	p->pc += num_len + p->gap + p->not_blank;
-	p->pc += p->number < 0 ? 1 : 0;
 	p->pc -= p->precision == 0 && p->unumber == 0 ? 1 : 0;
 }
 
@@ -82,7 +91,6 @@ static void		print_number(t_params *p)
 void			print_d(t_params *p)
 {
 	set_params(p);
-	// print_params(p);
 	if (p->width == 0 && p->precision == 0 && p->number == 0)
 		return ;
 	else if (p->flag[0] == '-')

@@ -11,117 +11,102 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "libft/libft.h"
 
-static uintmax_t	get_number(t_params *params)
+static uintmax_t	get_number(t_params *p)
 {
 	uintmax_t	num;
 
-	if (ft_strcmp(params->length, "hh") == 0)
-		num = (unsigned char)(va_arg(params->args, unsigned int));
-	else if (ft_strcmp(params->length, "h") == 0)
-		num = (unsigned short)(va_arg(params->args, unsigned int));
-	else if (ft_strcmp(params->length, "ll") == 0)
-		num = (unsigned long long)(va_arg(params->args,
+	if (ft_strcmp(p->length, "hh") == 0)
+		num = (unsigned char)(va_arg(p->args, unsigned int));
+	else if (ft_strcmp(p->length, "h") == 0)
+		num = (unsigned short)(va_arg(p->args, unsigned int));
+	else if (ft_strcmp(p->length, "ll") == 0)
+		num = (unsigned long long)(va_arg(p->args,
 			unsigned long long int));
-	else if (ft_strcmp(params->length, "l") == 0)
-		num = (unsigned long)(va_arg(params->args, unsigned long int));
-	else if (ft_strcmp(params->length, "j") == 0)
-		num = (uintmax_t)(va_arg(params->args, uintmax_t));
-	else if (ft_strcmp(params->length, "z") == 0)
-		num = (size_t)(va_arg(params->args, size_t));
+	else if (ft_strcmp(p->length, "l") == 0)
+		num = (unsigned long)(va_arg(p->args, unsigned long int));
+	else if (ft_strcmp(p->length, "j") == 0)
+		num = (uintmax_t)(va_arg(p->args, uintmax_t));
+	else if (ft_strcmp(p->length, "z") == 0)
+		num = (size_t)(va_arg(p->args, size_t));
 	else
-		num = (unsigned int)(va_arg(params->args, unsigned int));
+		num = (unsigned int)(va_arg(p->args, unsigned int));
 	num = (uintmax_t)num;
 	return (num);
 }
 
-static void			set_params(t_params *params)
+static void			set_params(t_params *p)
 {
 	int			num_len;
 
-	params->unumber = get_number(params);
-	params->string = ft_itoa_base(params->unumber, 16, params->type);
-	num_len = ft_strlen(params->string);
-	params->not_blank += params->precision > num_len ? params->precision - num_len : 0;
-	params->gap += params->precision == 0 && params->unumber == 0 ? 1 : 0;
-	params->gap += params->number < 0 ? params->width - params->not_blank - num_len - 1 :
-		params->width - params->not_blank - num_len;
-	params->gap = params->gap < 0 ? 0 : params->gap;
-	params->pc += num_len + params->gap + params->not_blank;
-	params->pc += params->number < 0 ? 1 : 0;
-	params->pc -= params->precision == 0 && params->unumber == 0 ? 1 : 0;
-	// params->unumber = get_number(params);
-	// params->string = ft_itoa_base(params->unumber, 16, params->type);
-	// num_len = ft_strlen(params->string);
-	// if (params->precision && params->precision > num_len)
-	// 	params->not_blank += params->precision - num_len;
-	// if (params->unumber == 0 && params->precision == 0)
-	// 	params->gap++;
-	// if (params->width && params->width > num_len)
-	// 	params->gap += params->width - num_len;
-	// if (params->width > params->precision)
-	// 	params->gap -= params->not_blank;
-	// else
-	// 	params->gap = 0;
-	// if (params->flag[4] == '#' && params->unumber != 0)
-	// {
-	// 	params->gap -= 2;
-	// 	params->pc += 2;
-	// }
-	// params->pc += params->gap + num_len + params->not_blank;
-	// params->pc -= params->precision == 0 && params->unumber == 0 ? 1 : 0;
+	p->unumber = get_number(p);
+	p->string = ft_itoa_base(p->unumber, 16, p->type);
+	num_len = ft_strlen(p->string);
+	p->not_blank += p->precision > num_len ?
+		p->precision - num_len : 0;
+	p->gap += p->precision == 0 && p->unumber == 0 ? 1 : 0;
+	p->gap += p->number < 0 ?
+		p->width - p->not_blank - num_len - 1 :
+		p->width - p->not_blank - num_len;
+	if (p->flag[4] == '#' && p->unumber != 0)
+	{
+		p->gap -= 2;
+		p->pc += 2;
+	}
+	p->gap = p->gap < 0 ? 0 : p->gap;
+	p->pc += num_len + p->gap + p->not_blank;
+	p->pc -= p->precision == 0 && p->unumber == 0 ? 1 : 0;
 }
 
-static void			print_preffix(t_params *params)
+static void			print_preffix(t_params *p)
 {
-	if (params->flag[4] == '#' && params->unumber != 0)
+	if (p->flag[4] == '#' && p->unumber != 0)
 	{
-		if (params->type == 'x')
+		if (p->type == 'x')
 			write(1, "0x", 2);
-		if (params->type == 'X')
+		if (p->type == 'X')
 			write(1, "0X", 2);
 	}
 }
 
-static void		handle_flag_zero_precison(t_params *params)
+static void			handle_flag_zero_precison(t_params *p)
 {
-	if (params->precision > -1)
+	if (p->precision > -1)
 	{
-		print_padding(' ', params->gap);
-		print_preffix(params);
+		print_padding(' ', p->gap);
+		print_preffix(p);
 	}
 	else
 	{
-		print_preffix(params);
-		print_padding('0', params->gap);
+		print_preffix(p);
+		print_padding('0', p->gap);
 	}
 }
 
-void				print_x(t_params *params)
+void				print_x(t_params *p)
 {
-	set_params(params);
-	if (params->unumber == 0 && params->precision == 0)
-		print_padding(' ', params->gap);
-	else if (params->flag[0] == '-')
+	set_params(p);
+	if (p->unumber == 0 && p->precision == 0)
+		print_padding(' ', p->gap);
+	else if (p->flag[0] == '-')
 	{
-		print_preffix(params);
-		print_not_blank(params);
-		ft_putstr(params->string);
-		print_padding(' ', params->gap);
+		print_preffix(p);
+		print_not_blank(p);
+		ft_putstr(p->string);
+		print_padding(' ', p->gap);
 	}
-	else if (params->flag[1] == '0')
+	else if (p->flag[1] == '0')
 	{
-		handle_flag_zero_precison(params);
-		print_padding('0', params->not_blank);
-		ft_putstr(params->string);
+		handle_flag_zero_precison(p);
+		print_padding('0', p->not_blank);
+		ft_putstr(p->string);
 	}
 	else
 	{
-		print_padding(' ', params->gap);
-		print_preffix(params);
-		print_not_blank(params);
-		ft_putstr(params->string);
+		print_padding(' ', p->gap);
+		print_preffix(p);
+		print_not_blank(p);
+		ft_putstr(p->string);
 	}
-	free(params->string);
+	free(p->string);
 }

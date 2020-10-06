@@ -31,6 +31,6 @@ void	get_width(t_params *params)
 			params->width *= 10;
 			params->width += (params->f_treat[params->i] - '0');
 			params->i++;
-		}	
+		}
 	}
 }

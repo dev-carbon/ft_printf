@@ -28,7 +28,7 @@ static void	set_params(t_params *params)
 	params->string = get_string(params);
 	if (params->precision < -1 && params->string)
 		params->string = ft_strdup(params->string);
-	else if (params->precision == -2 && !params->string)
+	else if (params->precision < -1 && !params->string)
 		params->string = ft_strdup("(null)");
 	else if (params->precision != -1 && params->string)
 		params->string = ft_strndup(params->string, params->precision);
