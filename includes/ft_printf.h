@@ -6,7 +6,7 @@
 /*   By: humanfou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 13:21:30 by humanfou          #+#    #+#             */
-/*   Updated: 2020/10/06 13:21:43 by humanfou         ###   ########.fr       */
+/*   Updated: 2020/10/22 17:16:03 by humanfou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define FT_PRINTF_H
 
 # include <stdarg.h>
-# include <limits.h>
+# include <stdint.h>
 # include <stdlib.h>
 # include <wchar.h>
 # include <unistd.h>

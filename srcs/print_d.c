@@ -12,6 +12,7 @@
 
 #include "ft_printf.h"
 #include "libft/libft.h"
+#include <stdio.h>
 
 static intmax_t	get_number(t_params *p)
 {
@@ -45,23 +46,13 @@ static void		set_params(t_params *p)
 	p->unumber = p->number < 0 ? -p->number : p->number;
 	num_len = ft_nbrlen(p->unumber);
 	p->not_blank += p->precision > num_len ? p->precision - num_len : 0;
-	p->gap += p->precision == 0 && p->unumber == 0 ? 1 : 0;
-	p->gap += p->number < 0 ? p->width - p->not_blank - num_len - 1 :
-		p->width - p->not_blank - num_len;
-	if (p->flag[2] == '+' || p->flag[3] == ' ')
+	p->gap += (p->precision == 0 && p->unumber == 0) ? 1 : 0;
+	p->gap += (p->width > num_len) ? p->width - p->not_blank - num_len : 0;
+	if (p->flag[2] == '+' || p->flag[3] == ' ' || p->number < 0)
 	{
-		if (p->number < 0)
-		{
-			p->gap -= 1;
-			p->pc += 1;
-		}
-	}
-	else if (p->number < 0)
+		p->gap -= p->gap > 0 ? 1 : 0;
 		p->pc += 1;
-	printf("number = %jd\n", p->number);
-	printf("unumber = %ju\n", p->unumber);
-	printf("num_len = %d\n", num_len);
-	p->gap = p->gap < 0 ? 0 : p->gap;
+	}
 	p->pc += num_len + p->gap + p->not_blank;
 	p->pc -= (p->precision == 0 && p->unumber == 0) ? 1 : 0;
 }
