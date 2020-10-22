@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include "libft/libft.h"
 
 static void	init_params(t_params *params)
 {
@@ -25,6 +26,7 @@ static void	init_params(t_params *params)
 	params->gap = 0;
 	params->not_blank = 0;
 	params->pc = 0;
+	params->string = ft_strnew(0);
 	params->number = 0;
 	params->unumber = 0;
 }

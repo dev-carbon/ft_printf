@@ -13,27 +13,24 @@
 #include "ft_printf.h"
 #include "libft/libft.h"
 
-void	print(t_params *params)
+void	print(t_params *p)
 {
-	char	type;
-
-	type = params->type;
-	if (type == 'c' || type == 'C')
-		print_c(params);
-	else if (type == 'd' || type == 'i' || type == 'D')
-		print_d(params);
-	else if (type == 's' && ft_strcmp(params->length, "l") == 0)
-		print_s(params);
-	else if (type == 'o')
-		print_o(params);
-	else if (type == 's')
-		print_s(params);
-	else if (type == 'p')
-		print_p(params);
-	else if (type == 'u' || type == 'U')
-		print_u(params);
-	else if (type == 'x' || type == 'X')
-		print_x(params);
-	else
-		print_other(params);
+	if (p->type == 'c' || p->type == 'C')
+		print_c(p);
+	else if (p->type == 'd' || p->type == 'i' || p->type == 'D')
+		print_d(p);
+	else if (p->type == 's' && ft_strcmp(p->length, "l") == 0)
+		print_s(p);
+	else if (p->type == 'o')
+		print_o(p);
+	else if (p->type == 's')
+		print_s(p);
+	else if (p->type == 'p')
+		print_p(p);
+	else if (p->type == 'u' || p->type == 'U')
+		print_u(p);
+	else if (p->type == 'x' || p->type == 'X')
+		print_x(p);
+	else if (p->type == '%')
+		print_percent(p);
 }

@@ -13,9 +13,8 @@
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
-# include "libft.h"
 # include <stdarg.h>
-# include <stdint.h>
+# include <limits.h>
 # include <stdlib.h>
 # include <wchar.h>
 # include <unistd.h>
@@ -62,10 +61,10 @@ void			print_u(t_params *params);
 void			print_wchar(t_params *params);
 void			print_ws(t_params *params);
 void			print_x(t_params *params);
-void			print_other(t_params *params);
+void			print_percent(t_params *params);
 void			print_sign(t_params *p);
+void			print_preffix(t_params *p);
 void			print_padding(char padding, int gap);
 void			print_not_blank(t_params *params);
-void			print_params(t_params *params);
 
 #endif

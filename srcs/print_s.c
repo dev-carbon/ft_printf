@@ -33,14 +33,13 @@ static void	set_params(t_params *params)
 	else if (params->precision != -1 && params->string)
 		params->string = ft_strndup(params->string, params->precision);
 	else if (params->precision != -1 && !params->string)
-		params->string = (params->precision < 6) ? ft_strnew(0) :
-			ft_strndup("(null)", params->precision);
+		params->string = ft_strndup("(null)", params->precision);
 	else if (params->precision == -1 && params->string)
 		params->string = ft_strdup(params->string);
 	else if (params->precision == -1 && !params->string)
 		params->string = ft_strdup("(null)");
 	if (params->width &&
-			(params->width > (str_len = (int)ft_strlen(params->string))))
+		(params->width > (str_len = (int)ft_strlen(params->string))))
 		params->gap += params->width - str_len;
 	params->pc += params->gap + ft_strlen(params->string);
 }
@@ -52,6 +51,11 @@ void		print_s(t_params *params)
 	{
 		ft_putstr_fd(params->string, 1);
 		print_padding(' ', params->gap);
+	}
+	else if (params->flag[1] == '0')
+	{
+		print_padding('0', params->gap);
+		ft_putstr_fd(params->string, 1);
 	}
 	else
 	{

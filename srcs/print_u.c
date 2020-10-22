@@ -12,7 +12,6 @@
 
 #include "ft_printf.h"
 #include "libft/libft.h"
-#include <limits.h>
 
 static uintmax_t	get_number(t_params *p)
 {

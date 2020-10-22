@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_other.c                                      :+:      :+:    :+:   */
+/*   print_preffix.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: humanfou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/27 16:00:23 by humanfou          #+#    #+#             */
-/*   Updated: 2020/09/27 16:00:27 by humanfou         ###   ########.fr       */
+/*   Created: 2020/10/22 11:55:53 by humanfou          #+#    #+#             */
+/*   Updated: 2020/10/22 11:56:28 by humanfou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "libft/libft.h"
 
-static void	set_params(t_params *params)
+void			print_preffix(t_params *p)
 {
-	if (params->type == '%')
-		params->pc++;
-}
+	if (p->flag[4] == '#')
+	{
 
-void		print_other(t_params *params)
-{
-	set_params(params);
-	if (params->type == '%')
-		ft_putchar(params->type);
+		if (p->type == 'x' && p->unumber != 0)
+			write(1, "0x", 2);
+		if (p->type == 'X' && p->unumber != 0)
+			write(1, "0X", 2);
+		if (p->type == 'o')
+			write(1, "0", 1);
+	}
 }

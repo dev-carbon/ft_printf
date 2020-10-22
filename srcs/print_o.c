@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include "libft/libft.h"
+#include <stdio.h>
 
 static uintmax_t	get_number(t_params *params)
 {
@@ -42,26 +44,33 @@ static void			set_params(t_params *params)
 	params->unumber = get_number(params);
 	params->string = ft_itoa_base(params->unumber, 8, 'x');
 	num_len = ft_strlen(params->string);
-	params->not_blank += params->precision > num_len ?
+	params->not_blank += (params->precision > num_len) ?
 		params->precision - num_len : 0;
-	params->gap += params->precision == 0 && params->unumber == 0 ? 1 : 0;
+	params->gap += (params->precision == 0 && params->unumber == 0) ? 1 : 0;
 	params->gap += params->number < 0 ?
 		params->width - params->not_blank - num_len - 1 :
 			params->width - params->not_blank - num_len;
-	if (params->flag[4] == '#' && params->unumber != 0)
+	if (params->flag[4] == '#')
 	{
+		if (params->precision > 0 || params->unumber != 0)
+			params->pc += 1;
+		params->not_blank -= 1;
 		params->gap -= 1;
-		params->pc += 1;
 	}
+	else
+		params->pc -= (params->precision == 0 && params->unumber == 0) ? 1 : 0;
+	params->not_blank = params->not_blank < 0 ? 0 : params->not_blank;
 	params->gap = params->gap < 0 ? 0 : params->gap;
 	params->pc += num_len + params->gap + params->not_blank;
-	params->pc -= params->precision == 0 && params->unumber == 0 ? 1 : 0;
 }
 
-static void			print_preffix(t_params *params)
+static void			print_string(t_params *params)
 {
-	if (params->flag[4] == '#' && params->unumber != 0)
-		write(1, "0", 1);
+	if (params->unumber == 0 && params->precision == -1)
+		if (params->flag[4] != '#')
+			ft_putstr(params->string);
+	if (params->unumber != 0 || params->precision > 0)
+		ft_putstr(params->string);
 }
 
 static void			handle_flag_zero_precison(t_params *params)
@@ -81,27 +90,25 @@ static void			handle_flag_zero_precison(t_params *params)
 void				print_o(t_params *params)
 {
 	set_params(params);
-	if (params->unumber == 0 && params->precision == 0)
-		print_padding(' ', params->gap);
-	else if (params->flag[0] == '-')
+	if (params->flag[0] == '-')
 	{
 		print_preffix(params);
 		print_not_blank(params);
-		ft_putstr(params->string);
+		print_string(params);
 		print_padding(' ', params->gap);
 	}
 	else if (params->flag[1] == '0')
 	{
 		handle_flag_zero_precison(params);
 		print_padding('0', params->not_blank);
-		ft_putstr(params->string);
+		print_string(params);
 	}
 	else
 	{
 		print_padding(' ', params->gap);
 		print_preffix(params);
 		print_not_blank(params);
-		ft_putstr(params->string);
+		print_string(params);
 	}
 	free(params->string);
 }

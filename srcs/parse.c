@@ -26,6 +26,7 @@ static void	reinit_params(t_params *params)
 	params->not_blank = 0;
 	params->width = 0;
 	params->precision = -1;
+	params->string = ft_strnew(0);
 	params->number = 0;
 	params->unumber = 0;
 }

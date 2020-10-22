@@ -58,9 +58,12 @@ static void		set_params(t_params *p)
 	}
 	else if (p->number < 0)
 		p->pc += 1;
+	printf("number = %jd\n", p->number);
+	printf("unumber = %ju\n", p->unumber);
+	printf("num_len = %d\n", num_len);
 	p->gap = p->gap < 0 ? 0 : p->gap;
 	p->pc += num_len + p->gap + p->not_blank;
-	p->pc -= p->precision == 0 && p->unumber == 0 ? 1 : 0;
+	p->pc -= (p->precision == 0 && p->unumber == 0) ? 1 : 0;
 }
 
 static void		handle_flag_zero_precison(t_params *p)

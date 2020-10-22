@@ -6,7 +6,7 @@
 #    By: humanfou <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/25 15:35:56 by humanfou          #+#    #+#              #
-#    Updated: 2020/10/01 19:02:58 by humanfou         ###   ########.fr        #
+#    Updated: 2020/10/06 14:07:17 by humanfou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,8 +38,9 @@ CFILE =		ft_printf.c \
                 print_d.c \
                 print_u.c \
                 print_x.c \
-                print_other.c \
+                print_percent.c \
                 print_sign.c \
+                print_preffix.c \
                 print_padding.c \
                 print_not_blank.c
 
@@ -51,25 +52,24 @@ OBJ =		$(addprefix $(OBJ_DIR), $(OFILE))
 
 all: $(OBJ_DIR) $(NAME)
 
+bonus: all
+
 $(OBJ_DIR):
 		@mkdir -p $(OBJ_DIR)
-		@echo Create: ft_printf Object directory
 
 $(NAME): $(OBJ)
-		@echo LIBFT START
+		@echo LIBFT STARTED
 		@make -C $(LIB_DIR)
-		@echo Copying $(LIBFT_A) to root.
+		@echo MERGING: $(NAME) WITH $(LIBFT_A)
 		@cp $(LIB_DIR)$(LIBFT_A) .
 		@mv $(LIBFT_A) $(NAME)
 		@ar rc $(NAME) $(addprefix $(OBJ_DIR), $(OFILE))
-		@echo Merged: $(NAME) with $(LIBFT_A)
-		@echo FT_PRINTF COMPLETE
+		@echo $(NAME) CREATED
 
 $(OBJ): $(CFIND)
 		@$(MAKE) $(OFILE)
 
 $(OFILE):
-		@echo Create: $(@:obj/%=%)
 		@$(COMP) $(OBJ_DIR)$@ $(SRC_DIR)$(@:%.o=%.c)
 
 clean:

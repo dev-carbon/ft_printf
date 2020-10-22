@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include "libft/libft.h"
 
 static uintmax_t	get_number(t_params *p)
 {
@@ -45,8 +46,7 @@ static void			set_params(t_params *p)
 	p->not_blank += p->precision > num_len ?
 		p->precision - num_len : 0;
 	p->gap += p->precision == 0 && p->unumber == 0 ? 1 : 0;
-	p->gap += p->number < 0 ?
-		p->width - p->not_blank - num_len - 1 :
+	p->gap += p->number < 0 ? p->width - p->not_blank - num_len - 1 :
 		p->width - p->not_blank - num_len;
 	if (p->flag[4] == '#' && p->unumber != 0)
 	{
@@ -56,17 +56,6 @@ static void			set_params(t_params *p)
 	p->gap = p->gap < 0 ? 0 : p->gap;
 	p->pc += num_len + p->gap + p->not_blank;
 	p->pc -= p->precision == 0 && p->unumber == 0 ? 1 : 0;
-}
-
-static void			print_preffix(t_params *p)
-{
-	if (p->flag[4] == '#' && p->unumber != 0)
-	{
-		if (p->type == 'x')
-			write(1, "0x", 2);
-		if (p->type == 'X')
-			write(1, "0X", 2);
-	}
 }
 
 static void			handle_flag_zero_precison(t_params *p)
