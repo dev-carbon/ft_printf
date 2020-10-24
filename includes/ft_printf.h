@@ -62,6 +62,7 @@ void			print_wchar(t_params *params);
 void			print_ws(t_params *params);
 void			print_x(t_params *params);
 void			print_percent(t_params *params);
+void			print_undefined(void);
 void			print_sign(t_params *p);
 void			print_preffix(t_params *p);
 void			print_padding(char padding, int gap);

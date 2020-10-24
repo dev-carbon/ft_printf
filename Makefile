@@ -39,6 +39,7 @@ CFILE =		ft_printf.c \
                 print_u.c \
                 print_x.c \
                 print_percent.c \
+                print_undefined.c \
                 print_sign.c \
                 print_preffix.c \
                 print_padding.c \

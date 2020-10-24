@@ -33,4 +33,6 @@ void	print(t_params *p)
 		print_x(p);
 	else if (p->type == '%')
 		print_percent(p);
+	else
+		print_undefined();
 }

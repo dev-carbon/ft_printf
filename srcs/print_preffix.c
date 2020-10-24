@@ -16,7 +16,6 @@ void			print_preffix(t_params *p)
 {
 	if (p->flag[4] == '#')
 	{
-
 		if (p->type == 'x' && p->unumber != 0)
 			write(1, "0x", 2);
 		if (p->type == 'X' && p->unumber != 0)
